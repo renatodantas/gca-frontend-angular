@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Exclusão</h1>
+
+<div mat-dialog-content>
+  Tem certeza que deseja excluir o agrupamento: {{ data.nome }}?
+</div>
+
+<div mat-dialog-actions align="end" class="mt-8">
+  <button mat-raised-button [mat-dialog-close]="false">Cancelar</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+</div>
