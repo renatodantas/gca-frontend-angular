@@ -1,12 +1,13 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { merge, of } from 'rxjs/index';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { Agrupamento } from 'src/app/shared/domain/agrupamento';
-import { Pageable } from 'src/app/shared/domain/pageable';
 
+import { AgrupamentoDeleteComponent } from '../agrupamento-delete/agrupamento-delete.component';
 import { AgrupamentoService } from '../agrupamento.service';
 
 @Component({
@@ -31,7 +32,9 @@ export class AgrupamentoListComponent implements AfterViewInit {
   pageSize = 0;
   pages = 0;
 
-  constructor(private service: AgrupamentoService) { }
+  constructor(
+    private service: AgrupamentoService,
+    private dialog: MatDialog) { }
 
   ngAfterViewInit(): void {
     // this.service.findAll().subscribe(res => this.dataSource.data = res.results);
@@ -67,7 +70,13 @@ export class AgrupamentoListComponent implements AfterViewInit {
   excluir(event: MouseEvent, item: Agrupamento) {
     event.stopPropagation();
     event.preventDefault();
-    alert('Vai excluir ' + item.nome);
+
+    this.dialog
+      .open(AgrupamentoDeleteComponent, { data: item })
+      .afterClosed()
+      .subscribe(resposta => {
+        console.log('Pode excluir? ', resposta);
+      });
   }
 
   selecionou(item: Agrupamento) {
