@@ -24,12 +24,12 @@ export class AgrupamentoListComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort: MatSort;
 
-  total = 0;
+  // Paginação
   isLoading = false;
-  count: number;
-  pageNumber: number;
-  pageSize: number;
-  pages: number;
+  count = 0;
+  pageNumber = 0;
+  pageSize = 0;
+  pages = 0;
 
   constructor(private service: AgrupamentoService) { }
 
@@ -40,24 +40,37 @@ export class AgrupamentoListComponent implements AfterViewInit {
     merge(this.sort.sortChange, this.paginator.page).pipe(
       startWith({}),
       switchMap(() => {
-        console.log('sort', this.sort, 'paging:', this.paginator);
         this.isLoading = true;
-        return this.service.findAll();
+        return this.service.findAll({
+          sort: this.sort.active,
+          order: this.sort.direction,
+          page: this.paginator.pageIndex,
+          size: this.paginator.pageSize
+        });
       }),
       map(data => {
         this.isLoading = false;
-        this.total = data.count;
-        return data;
+        this.count = data.count;
+        this.pageNumber = data.page_number;
+        this.pageSize = data.page_size;
+        this.pages = data.pages;
+        this.dataSource.data = data.results;
       }),
       catchError(err => {
         this.isLoading = false;
         console.log('Deu erro:', err);
         return of({});
       })
-    ).subscribe((data: Pageable<Agrupamento>) => this.dataSource.data = data.results);
+    ).subscribe();
   }
 
-  excluir(item: Agrupamento) {
+  excluir(event: MouseEvent, item: Agrupamento) {
+    event.stopPropagation();
+    event.preventDefault();
     alert('Vai excluir ' + item.nome);
+  }
+
+  selecionou(item: Agrupamento) {
+    alert('Selecionou: ' + item.nome);
   }
 }

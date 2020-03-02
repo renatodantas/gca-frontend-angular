@@ -14,11 +14,12 @@ export class AgrupamentoService extends MatTableDataSource<Agrupamento> {
     super();
   }
 
-  findAll(sort?: string, order = 'asc', page = 0): Observable<Pageable<Agrupamento>> {
+  findAll(sorting: { sort?: string, order?: string, page?: number, size?: number }): Observable<Pageable<Agrupamento>> {
     const params = new HttpParams()
-      .set('sort', sort)
-      .set('order', order)
-      .set('page', page.toString());
+      .set('sort', sorting.sort || '')
+      .set('order', sorting.order || 'asc')
+      .set('page', `${sorting.page || 0}`)
+      .set('size', `${sorting.size || 10}`);
     return this.http.get<Pageable<Agrupamento>>(environment.api + '/api/agrupamentos', { params });
   }
 }
