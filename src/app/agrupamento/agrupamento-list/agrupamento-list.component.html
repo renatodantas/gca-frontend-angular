@@ -1,33 +1,38 @@
 <h1>Agrupamentos</h1>
-<hr />
 
-<div class="columns">
-  <div class="column is-three-fifths is-offset-one-fifth">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>ID</th>
-        <td mat-cell *matCellDef="let item">{{ item.id }}</td>
-      </ng-container>
+<table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+    <td mat-cell *matCellDef="let item">{{ item.id }}</td>
+  </ng-container>
 
-      <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef>Nome</th>
-        <td mat-cell *matCellDef="let item">{{ item.nome }}</td>
-      </ng-container>
+  <ng-container matColumnDef="nome">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+    <td mat-cell *matCellDef="let item">{{ item.nome }}</td>
+  </ng-container>
 
-      <ng-container matColumnDef="ativo">
-        <th mat-header-cell *matHeaderCellDef>Ativo</th>
-        <td mat-cell *matCellDef="let item">{{ item.ativo }}</td>
-      </ng-container>
+  <ng-container matColumnDef="ativo">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Ativo</th>
+    <td mat-cell *matCellDef="let item">
+      <app-active-icon [value]="item.ativo"></app-active-icon>
+    </td>
+  </ng-container>
 
-      <ng-container matColumnDef="acoes">
-        <th mat-header-cell *matHeaderCellDef>Ativo</th>
-        <td mat-cell *matCellDef="let item">
-          [ alguma coisa ]
-        </td>
-      </ng-container>
+  <ng-container matColumnDef="acoes">
+    <th mat-header-cell *matHeaderCellDef>Ativo</th>
+    <td mat-cell *matCellDef="let item">
+      <app-delete-icon (click)="excluir($event, item)"></app-delete-icon>
+    </td>
+  </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-  </div>
-</div>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let item; columns: displayedColumns" 
+    class="hover:bg-indigo-100 cursor-pointer"
+    (click)="selecionou(item)"></tr>
+</table>
+
+<mat-paginator #paginator
+  [length]="count"
+  [pageSize]="10"
+  [pageSizeOptions]="[10, 20, 50]">
+</mat-paginator>

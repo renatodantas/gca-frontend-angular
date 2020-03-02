@@ -1,45 +1,72 @@
-<nav class="navbar is-info" role="navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" (click)="navegar('/')">
-      <i class="fa fa-fw fa-lg fa-cube"></i>
-      <strong>GCA</strong>
-    </a>
+<nav class="flex items-center justify-between flex-wrap bg-blue-800 p-2">
+  <a class="flex items-center flex-shrink-0 text-white mr-6" href="#" routerLink="/">
+    <i class="fa fa-fw fa-lg fa-cube"></i>
+    <span class="font-semibold text-xl tracking-tight">
+      GCA
+    </span>
+  </a>
 
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-gca">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="navbar-gca" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" (click)="navegar('/')">
+  <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+    <div class="text-sm lg:flex-grow">
+      <a routerLink="/" class="block mx-3 lg:inline-block lg:mt-0 text-blue-200 hover:text-white">
         Projetos
       </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          Extras
-        </a>
-
-        <div class="navbar-dropdown">
-          <a class="navbar-item" (click)="navegar('/agrupamentos')">Agrupamentos</a>
-					<a class="navbar-item" (click)="navegar('/agrupamentos')">Classificações Negociais</a>
-          <a class="navbar-item" (click)="navegar('/agrupamentos')">Classificações Técnicas</a>
-          <a class="navbar-item" (click)="navegar('/agrupamentos')">Classificações Projeto</a>
-        </div>
-      </div>
+      <a routerLink="/agrupamentos" class="block mx-3 lg:inline-block lg:mt-0 text-blue-200 hover:text-white">
+        Agrupamentos
+      </a>
     </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <button mat-raised-button>
-            Log in
-          </button>
-        </div>
-      </div>
+    <div>
+      <button mat-raised-button>
+        Log in
+      </button>
     </div>
   </div>
 </nav>
+
+<!--
+  <nav class="navbar is-info" role="navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" (click)="navegar('/')">
+        <i class="fa fa-fw fa-lg fa-cube"></i>
+        <strong>GCA</strong>
+      </a>
+      
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-gca">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    
+    <div id="navbar-gca" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" (click)="navegar('/')">
+          Projetos
+        </a>
+        
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Extras
+          </a>
+          
+          <div class="navbar-dropdown">
+            <a class="navbar-item" (click)="navegar('/agrupamentos')">Agrupamentos</a>
+            <a class="navbar-item" (click)="navegar('/agrupamentos')">Classificações Negociais</a>
+            <a class="navbar-item" (click)="navegar('/agrupamentos')">Classificações Técnicas</a>
+            <a class="navbar-item" (click)="navegar('/agrupamentos')">Classificações Projeto</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <button mat-raised-button>
+              Log in
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+-->
