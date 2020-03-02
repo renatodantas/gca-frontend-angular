@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { Agrupamento } from 'src/app/shared/domain/agrupamento';
+
+import { AgrupamentoService } from '../agrupamento.service';
 
 @Component({
   selector: 'app-agrupamento-list',
@@ -7,9 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AgrupamentoListComponent implements OnInit {
 
-  constructor() { }
+  dataSource = new MatTableDataSource<Agrupamento>();
+  displayedColumns = ['id', 'nome', 'ativo', 'acoes'];
+
+  constructor(private service: AgrupamentoService) { }
 
   ngOnInit(): void {
+    this.service.findAll().subscribe(res => this.dataSource.data = res.results);
   }
 
 }
