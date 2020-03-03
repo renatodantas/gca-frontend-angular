@@ -6,9 +6,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { merge, of } from 'rxjs/index';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { Agrupamento } from 'src/app/shared/domain/agrupamento';
-
+import { Pageable } from 'src/app/shared/domain/pageable';
+import { MessageService } from 'src/app/shared/services/message/message.service';
 import { AgrupamentoDeleteComponent } from '../agrupamento-delete/agrupamento-delete.component';
 import { AgrupamentoService } from '../agrupamento.service';
+
 
 @Component({
   selector: 'app-agrupamento-list',
@@ -25,15 +27,12 @@ export class AgrupamentoListComponent implements AfterViewInit {
   @ViewChild(MatSort)
   sort: MatSort;
 
-  // Paginação
   isLoading = false;
-  count = 0;
-  pageNumber = 0;
-  pageSize = 0;
-  pages = 0;
+  items: Pageable<Agrupamento>;
 
   constructor(
     private service: AgrupamentoService,
+    private message: MessageService,
     private dialog: MatDialog) { }
 
   ngAfterViewInit(): void {
@@ -44,7 +43,7 @@ export class AgrupamentoListComponent implements AfterViewInit {
       startWith({}),
       switchMap(() => {
         this.isLoading = true;
-        return this.service.findAll({
+        return this.service.find({
           sort: this.sort.active,
           order: this.sort.direction,
           page: this.paginator.pageIndex,
@@ -53,21 +52,18 @@ export class AgrupamentoListComponent implements AfterViewInit {
       }),
       map(data => {
         this.isLoading = false;
-        this.count = data.count;
-        this.pageNumber = data.pageNumber;
-        this.pageSize = data.pageSize;
-        this.pages = data.pages;
+        this.items = data;
         this.dataSource.data = data.results;
       }),
       catchError(err => {
         this.isLoading = false;
-        console.log('Deu erro:', err);
+        this.message.showError(err);
         return of({});
       })
     ).subscribe();
   }
 
-  excluir(event: MouseEvent, data: Agrupamento) {
+  confirmarExclusao(event: MouseEvent, data: Agrupamento) {
     event.stopPropagation();
     event.preventDefault();
 
@@ -75,11 +71,18 @@ export class AgrupamentoListComponent implements AfterViewInit {
       .open(AgrupamentoDeleteComponent, { data })
       .afterClosed()
       .subscribe(resposta => {
-        console.log('Pode excluir? ', resposta);
+        if (resposta)
+          this.excluir(data);
       });
   }
 
-  selecionou(item: Agrupamento) {
-    alert('Selecionou: ' + item.nome);
+  private excluir(item: Agrupamento) {
+    this.service.remove(item).subscribe(
+      (resp) => {
+        this.message.showInfo(resp);
+        // TODO: implementar a atualização da tabela pós-remoção
+      },
+      (err) => this.message.showError(err)
+    );
   }
 }

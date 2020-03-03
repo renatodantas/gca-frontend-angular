@@ -4,19 +4,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarModule } from './shared/navbar/navbar.module';
+import { NavbarModule } from './shared/components/navbar/navbar.module';
+import { MessageService } from './shared/services/message/message.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    MatSnackBarModule,
     NavbarModule,
-    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
