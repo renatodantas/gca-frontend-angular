@@ -54,8 +54,8 @@ export class AgrupamentoListComponent implements AfterViewInit {
       map(data => {
         this.isLoading = false;
         this.count = data.count;
-        this.pageNumber = data.page_number;
-        this.pageSize = data.page_size;
+        this.pageNumber = data.pageNumber;
+        this.pageSize = data.pageSize;
         this.pages = data.pages;
         this.dataSource.data = data.results;
       }),
@@ -67,12 +67,12 @@ export class AgrupamentoListComponent implements AfterViewInit {
     ).subscribe();
   }
 
-  excluir(event: MouseEvent, item: Agrupamento) {
+  excluir(event: MouseEvent, data: Agrupamento) {
     event.stopPropagation();
     event.preventDefault();
 
     this.dialog
-      .open(AgrupamentoDeleteComponent, { data: item })
+      .open(AgrupamentoDeleteComponent, { data })
       .afterClosed()
       .subscribe(resposta => {
         console.log('Pode excluir? ', resposta);
