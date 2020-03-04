@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { catchError, map, mapTo } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Agrupamento } from '../shared/domain/agrupamento';
@@ -26,7 +26,10 @@ export class AgrupamentoService {
       );
   }
 
-  findById(id: number): Observable<Agrupamento> {
+  findById(id: number | string): Observable<Agrupamento> {
+    if (typeof id === 'string' && id === 'novo')
+      return of({});
+
     return this.http.get<Agrupamento>(`${environment.backend}/api/agrupamentos/${id}`);
   }
 

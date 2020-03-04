@@ -1,4 +1,10 @@
+<app-back-button routerLink="/agrupamentos"></app-back-button>
 <h1>Editar Agrupamento</h1>
 
-Nome: {{ item?.nome }}<br/>
-Ativo: {{ item?.ativo}}
+<form [formGroup]="form">
+
+  ID: <input type="text" formControlName="id" required/><br/>
+  Nome: <input type="text" formControlName="nome" required/><br/>
+  Ativo: <input type="checkbox" formControlName="ativo" required/>
+
+</form>

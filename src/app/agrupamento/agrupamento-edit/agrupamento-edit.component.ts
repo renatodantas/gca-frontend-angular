@@ -1,35 +1,36 @@
-import { AfterViewInit, Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
-import { Agrupamento } from 'src/app/shared/domain/agrupamento';
+import { Component, OnInit } from '@angular/core';
 import { AgrupamentoService } from '../agrupamento.service';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { switchMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-agrupamento-edit',
   templateUrl: './agrupamento-edit.component.html',
-  styleUrls: ['./agrupamento-edit.component.scss']
 })
-export class AgrupamentoEditComponent implements AfterViewInit {
+export class AgrupamentoEditComponent implements OnInit {
 
-  item: Agrupamento;
+  form: FormGroup;
 
   constructor(
     private service: AgrupamentoService,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private fb: FormBuilder
+  ) {
+    this.form = this.fb.group({
+      id: ['', Validators.required],
+      nome: ['', Validators.required],
+      ativo: ['', Validators.required]
+    });
+  }
 
-  ngAfterViewInit(): void {
-    console.log('view initing')
-    this.route.paramMap.pipe(
-      switchMap(params => {
-        const id = params.get('id');
-        console.log('chegou ID', id)
-        return id === 'novo'
-          ? of({} as Agrupamento)
-          : this.service.findById(+id);
-      }),
-      tap(item => this.item = item)
-    ).subscribe();
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.service.findById(id)
+      .subscribe(val => this.form.setValue({
+        id: val.id || '',
+        nome: val.nome || '',
+        ativo: val.ativo || ''
+      }));
   }
 }

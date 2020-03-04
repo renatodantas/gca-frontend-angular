@@ -2,12 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-active-icon',
-  templateUrl: './active-icon.component.html',
+  template: '<i class="fa fa-lg" [ngClass]="iconClass()">',
 })
 export class ActiveIconComponent {
 
-  @Input()
-  value: boolean;
+  @Input() value: boolean;
 
   iconClass() {
     return {
