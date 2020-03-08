@@ -1,4 +1,6 @@
-<h1>Agrupamentos</h1>
+<div class="flex items-center mb-8">
+  <div class="text-2xl">Agrupamentos</div>
+</div>
 
 <table mat-table matSort [dataSource]="(items$ | async)?.results" class="mat-elevation-z4 w-full" (matSortChange)="load()">
   <ng-container matColumnDef="id">
