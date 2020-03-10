@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, Subscription } from 'rxjs/index';
+import { Observable, Subscription } from 'rxjs';
 import { Agrupamento } from 'src/app/shared/domain/agrupamento';
 import { Pageable } from 'src/app/shared/domain/pageable';
 import { SortParams } from 'src/app/shared/domain/sort-params';
