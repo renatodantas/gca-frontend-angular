@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
 import { ConfiguracoesRoutingModule } from './configuracoes-routing.module';
@@ -16,7 +15,6 @@ import { ConfiguracaoCardComponent } from './configuracao-card/configuracao-card
     CommonModule,
     ConfiguracoesRoutingModule,
     MatButtonModule,
-    MatCardModule,
   ]
 })
 export class ConfiguracoesModule { }
