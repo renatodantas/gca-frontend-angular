@@ -8,9 +8,9 @@ describe('AgrupamentoEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AgrupamentoEditComponent ]
+      declarations: [AgrupamentoEditComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -15,7 +15,7 @@ export class MessageService {
 
   /**
    * Exibe mensagem de sucesso.
-   * 
+   *
    * @param message mensagem de sucesso a ser exibida
    */
   showInfo(message: string) {
@@ -27,7 +27,7 @@ export class MessageService {
 
   /**
    * Exibe mensagens de erro.
-   * 
+   *
    * @param err mensagem de erro (string) ou objeto que originou o erro (HttpErrorResponse)
    */
   showError(err: string | HttpErrorResponse) {
