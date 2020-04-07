@@ -9,6 +9,7 @@ import { Pageable } from 'src/app/shared/domain/pageable';
 import { SortParams } from 'src/app/shared/domain/sort-params';
 import { AgrupamentoDeleteComponent } from '../agrupamento-delete/agrupamento-delete.component';
 import { AgrupamentoService } from '../agrupamento.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-agrupamento-list',
@@ -29,7 +30,11 @@ export class AgrupamentoListComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private service: AgrupamentoService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    title: Title) {
+
+    title.setTitle('Agrupamentos');
+  }
 
   ngAfterViewInit(): void {
     this.subscriptions.add(

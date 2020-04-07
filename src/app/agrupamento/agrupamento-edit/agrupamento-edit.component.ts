@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AgrupamentoService } from '../agrupamento.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { switchMap, map } from 'rxjs/operators';
+import { AgrupamentoService } from '../agrupamento.service';
 
 @Component({
   selector: 'app-agrupamento-edit',
@@ -10,18 +10,18 @@ import { switchMap, map } from 'rxjs/operators';
 })
 export class AgrupamentoEditComponent implements OnInit {
 
-  form: FormGroup;
+  form: FormGroup = this.fb.group({
+    id: ['', Validators.required],
+    nome: ['', Validators.required],
+    ativo: ['', Validators.required]
+  });
 
   constructor(
     private service: AgrupamentoService,
     private route: ActivatedRoute,
-    private fb: FormBuilder
-  ) {
-    this.form = this.fb.group({
-      id: ['', Validators.required],
-      nome: ['', Validators.required],
-      ativo: ['', Validators.required]
-    });
+    private fb: FormBuilder,
+    title: Title) {
+    title.setTitle('Editar Agrupamento');
   }
 
   ngOnInit(): void {

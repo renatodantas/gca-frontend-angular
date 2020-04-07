@@ -31,7 +31,7 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let item; columns: displayedColumns" 
     class="hover:bg-indigo-100 cursor-pointer"
-    [routerLink]="['/agrupamentos', item.id]"></tr>
+    [routerLink]="item.id"></tr>
 </table>
 
 <mat-paginator #paginator

@@ -14,6 +14,7 @@ export class CardLinkComponent {
   constructor(public router: Router) { }
 
   encaminhar(): void {
+    console.log(' navegando pra ', this.url)
     this.router.navigate([this.url]);
   }
 }
